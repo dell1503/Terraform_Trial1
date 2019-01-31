@@ -1,5 +1,18 @@
 #!/bin/bash
 # https://raw.githubusercontent.com/dell1503/Terraform_Trial1/master/Scripts/bitcoinnodescript.sh?token=ATvO-ndktJGbyvoUYqXLY4Hl76c7Zq15ks5cU0_NwA%3D%3D
+echo "########### Variables"
+
+config="/usr/bin/bitcoin.conf"
+datadir="/media/bitcoin"
+
+echo "########### Install S3 Mount"
+sudo apt-get -y update
+sudo apt-get -y install s3fs
+
+echo "user_allow_other" >> /etc/fuse.conf
+(crontab -l 2>/dev/null; echo "@reboot s3fs bitcoindatadirtest:/  /media/bitcoin -o allow_other,iam_role='bitcoinec2'") | crontab -
+s3fs bitcoindatadirtest:/  /media/bitcoin -o allow_other,iam_role='bitcoinec2'
+
 echo "########### Changing to home dir"
 cd ~
 echo "########### Updating Ubuntu"
