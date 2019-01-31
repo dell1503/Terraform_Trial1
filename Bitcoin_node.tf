@@ -23,11 +23,12 @@ resource "aws_security_group" "default" {
 
 #EC2
 resource "aws_instance" "bitcoinnode" {
-  ami           = "ami-0cf8fa6a01bb07363"                                             #Ubuntu18.04 LTS,hvm:ebs-ssd
+  ami           = "ami-0bdf93799014acdc4"                                             #Ubuntu18.04 LTS,hvm:ebs-ssd
   instance_type = "t2.micro"
   security_groups = [
         "${aws_security_group.first.id}"
     ]
+  IAM ROLE ATTACHEN
   tags = {
     Name        = "EC2"
     Environment = "Dev"

@@ -1,4 +1,5 @@
 #!/bin/bash
+# https://raw.githubusercontent.com/dell1503/Terraform_Trial1/master/Scripts/bitcoinnodescript.sh?token=ATvO-ndktJGbyvoUYqXLY4Hl76c7Zq15ks5cU0_NwA%3D%3D
 echo "########### Changing to home dir"
 cd ~
 echo "########### Updating Ubuntu"
