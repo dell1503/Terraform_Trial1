@@ -6,19 +6,17 @@ config="/usr/bin/bitcoin.conf"
 datadir="/media/bitcoin"
 
 echo "########### Install S3 Mount"
-sudo apt-get -y update
+sudo apt-get update && sudo apt-get -y upgrade
 sudo apt-get -y install s3fs
 
 echo "user_allow_other" >> /etc/fuse.conf
-(crontab -l 2>/dev/null; echo "@reboot s3fs bitcoindatadirtest:/  /media/bitcoin -o allow_other,iam_role='bitcoinec2'") | crontab -
-s3fs bitcoindatadirtest:/  /media/bitcoin -o allow_other,iam_role='bitcoinec2'
 
 echo "########### Changing to home dir"
 cd ~
-echo "########### Updating Ubuntu"
-sudo apt-get update && sudo apt-get -y upgrade
-sudo apt-add-repository -y ppa:bitcoin/bitcoin
-sudo apt-get -y install bitcoind
+echo "########### Install Bitcoin"
+
+sudo apt-add-repository  --assume-yes  -y ppa:bitcoin/bitcoin
+sudo apt-get  --assume-yes -y install bitcoind
 
 echo "########### Creating Swap"
 #dd if=/dev/zero of=/swapfile bs=1M count=2048 ; mkswap /swapfile ; swapon /swapfile
@@ -45,6 +43,10 @@ sudo chmod -R a+rwx $datadir
 
 echo "########### Setting up autostart (cron)"
 
+(crontab -l 2>/dev/null; echo "@reboot s3fs bitcoindatadirtest:/  /media/bitcoin -o allow_other,iam_role='bitcoinec2'") | crontab -
+
 (crontab -l 2>/dev/null; echo "@reboot /usr/bin/bitcoind -daemon -conf=/usr/bin/bitcoin.conf") | crontab -
+
+s3fs bitcoindatadirtest:/  /media/bitcoin -o allow_other,iam_role='bitcoinec2'
 
 # reboot
