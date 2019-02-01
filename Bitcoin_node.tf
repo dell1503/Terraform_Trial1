@@ -42,7 +42,7 @@ resource "aws_instance" "bitcoinnode" {
                           Environment = "Dev"
                           }
     provisioner "file" {
-    source      = "./README.md"
+    source      = "README.md"
     destination = "/tmp/README.md"
   }
     /*
