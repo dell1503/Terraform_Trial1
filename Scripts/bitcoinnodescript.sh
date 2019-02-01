@@ -4,11 +4,11 @@ echo "########### Variables"
 
 config="/usr/bin/bitcoin.conf"
 datadir="/media/bitcoin"
+defaultuser="ubuntu"
 
 echo "########### Install S3 Mount"
 sudo apt-get update && sudo apt-get -y upgrade
 sudo apt-get -y install s3fs
-
 echo "user_allow_other" >> /etc/fuse.conf
 
 echo "########### Changing to home dir"
@@ -38,15 +38,15 @@ sudo echo "rpcpassword=$randPass" >> $config
 
 echo "############ Create Folders & Premissions"
 sudo mkdir $datadir
-sudo chmod -R a+rwx /home/ubuntu/.bitcoin
+sudo chmod -R a+rwx /home/$defaultuser/.bitcoin
 sudo chmod -R a+rwx $datadir
 
 echo "########### Setting up autostart (cron)"
 
-(crontab -l 2>/dev/null; echo "@reboot s3fs bitcoindatadirtest:/  /media/bitcoin -o allow_other,iam_role='bitcoinec2'") | crontab -
+sudo -u $defaultuser (crontab -l 2>/dev/null; echo "@reboot s3fs bitcoindatadirtest:/  /media/bitcoin -o allow_other,iam_role='bitcoinec2'") | crontab -
 
-(crontab -l 2>/dev/null; echo "@reboot /usr/bin/bitcoind -daemon -conf=/usr/bin/bitcoin.conf") | crontab -
+sudo -u $defaultuser (crontab -l 2>/dev/null; echo "@reboot /usr/bin/bitcoind -daemon -conf=/usr/bin/bitcoin.conf") | crontab -
 
-s3fs bitcoindatadirtest:/  /media/bitcoin -o allow_other,iam_role='bitcoinec2'
+sudo -u $defaultuser s3fs bitcoindatadirtest:/  /media/bitcoin -o allow_other,iam_role='bitcoinec2'
 
 # reboot
