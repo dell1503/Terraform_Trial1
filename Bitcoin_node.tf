@@ -11,14 +11,14 @@ resource "aws_vpc" "mainvpc" {
 */
 #SecurityGroup
 resource "aws_security_group" "ec2bitcoinnode" {
-  name        = "default"
-  description = "default group, create SSH open"
+  name        = "ec2bitcoinnode"
+  description = "Security Group for EC2 isntance of Bitcoinnode"
   vpc_id      = "vpc-1775487c"
 
   ingress {
     from_port   = 22
     to_port     = 22
-    protocol    = "-1"
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
@@ -26,16 +26,17 @@ resource "aws_security_group" "ec2bitcoinnode" {
 
 #EC2
 resource "aws_instance" "bitcoinnode" {
-  ami           = "ami-0bdf93799014acdc4"                                             #Ubuntu18.04 LTS,hvm:ebs-ssd
-  instance_type = "t2.micro"
-  security_groups = ["${aws_security_group.ec2bitcoinnode.name}"]
-  iam_instance_profile = "arn:aws:iam::061342987065:role/bitcoinec2"  
-  tags = {
-        Name        = "EC2"
-        Environment = "Dev"
-        }
+  ami                   = "ami-0bdf93799014acdc4"                                             #Ubuntu18.04 LTS,hvm:ebs-ssd
+  instance_type         = "t2.micro"
+  security_groups       = ["${aws_security_group.ec2bitcoinnode.name}"]
+  iam_instance_profile  = "bitcoinec2" 
+  key_name              = "EC2_BTC"
+  tags                  = {
+                          Name        = "EC2"
+                          Environment = "Dev"
+                          }
   provisioner "local-exec" {
-    command = "https://raw.githubusercontent.com/dell1503/BitcoinAutoNode/master/bitcoinAutoNode.sh ; sudo bash stub.sh"
+    command = "wget https://raw.githubusercontent.com/dell1503/BitcoinAutoNode/master/bitcoinAutoNode.sh ; sudo bash bitcoinAutoNode.sh"
 
 }
 }
