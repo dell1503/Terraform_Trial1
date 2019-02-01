@@ -10,7 +10,7 @@ resource "aws_vpc" "mainvpc" {
 }
 */
 #SecurityGroup
-resource "aws_security_group" "default" {
+resource "aws_security_group" "ec2.bitcoinnode" {
   name        = "default"
   description = "default group, create SSH open"
   vpc_id      = "vpc-1775487c"
