@@ -10,7 +10,7 @@ resource "aws_vpc" "mainvpc" {
 }
 */
 #SecurityGroup
-resource "aws_security_group" "ec2.bitcoinnode" {
+resource "aws_security_group" "ec2bitcoinnode" {
   name        = "default"
   description = "default group, create SSH open"
   vpc_id      = "vpc-1775487c"
@@ -28,7 +28,7 @@ resource "aws_security_group" "ec2.bitcoinnode" {
 resource "aws_instance" "bitcoinnode" {
   ami           = "ami-0bdf93799014acdc4"                                             #Ubuntu18.04 LTS,hvm:ebs-ssd
   instance_type = "t2.micro"
-  security_groups = ["${aws_security_group.default.name}"]
+  security_groups = ["${aws_security_group.ec2bitcoinnode.name}"]
   iam_instance_profile = "arn:aws:iam::061342987065:role/bitcoinec2"  
   tags = {
         Name        = "EC2"
