@@ -8,6 +8,8 @@ defaultuser="ubuntu"
 
 echo "########### Install S3 Mount"
 sudo apt-get update && sudo apt-get -y upgrade
+sudo apt-add-repository  --assume-yes  -y ppa:bitcoin/bitcoin
+sudo apt-get  --assume-yes -y install bitcoind
 sudo apt-get -y install s3fs
 echo "user_allow_other" >> /etc/fuse.conf
 
@@ -15,16 +17,13 @@ echo "########### Changing to home dir"
 cd ~
 echo "########### Install Bitcoin"
 
-sudo apt-add-repository  --assume-yes  -y ppa:bitcoin/bitcoin
-sudo apt-get  --assume-yes -y install bitcoind
+
 
 echo "########### Creating Swap"
 #dd if=/dev/zero of=/swapfile bs=1M count=2048 ; mkswap /swapfile ; swapon /swapfile
 #echo "/swapfile swap swap defaults 0 0" >> /etc/fstab
 
 echo "########### Creating config"
-config="/usr/bin/bitcoin.conf"
-datadir="/media/bitcoin"
 
 sudo touch $config
 sudo echo "server=1" > $config
