@@ -43,10 +43,8 @@ sudo chmod -R a+rwx $datadir
 
 echo "########### Setting up autostart (cron)"
 
-sudo -u $defaultuser (crontab -l 2>/dev/null; echo "@reboot s3fs bitcoindatadirtest:/  /media/bitcoin -o allow_other,iam_role='bitcoinec2'") | crontab -
-
-sudo -u $defaultuser (crontab -l 2>/dev/null; echo "@reboot /usr/bin/bitcoind -daemon -conf=/usr/bin/bitcoin.conf") | crontab -
-
-sudo -u $defaultuser s3fs bitcoindatadirtest:/  /media/bitcoin -o allow_other,iam_role='bitcoinec2'
+(crontab -l 2>/dev/null; echo "@reboot s3fs bitcoindatadirtest:/  /media/bitcoin -o allow_other,iam_role='bitcoinec2'") | crontab -
+(crontab -l 2>/dev/null; echo "@reboot /usr/bin/bitcoind -daemon -conf=/usr/bin/bitcoin.conf") | crontab -
+s3fs bitcoindatadirtest:/  /media/bitcoin -o allow_other,iam_role='bitcoinec2'
 
 # reboot
