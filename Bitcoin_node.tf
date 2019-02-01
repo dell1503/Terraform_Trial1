@@ -21,6 +21,12 @@ resource "aws_security_group" "ec2bitcoinnode" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }
 
 
@@ -35,8 +41,19 @@ resource "aws_instance" "bitcoinnode" {
                           Name        = "EC2"
                           Environment = "Dev"
                           }
+    provisioner "file" {
+    source      = "./README.md"
+    destination = "/tmp/README.md"
+  }
+    /*
+    provisioner "remote-exec" {
+    inline = [
+      "https://raw.githubusercontent.com/dell1503/Terraform_Trial1/master/Scripts/bitcoinnodescript.sh",
+      "sudo bash bitcoinnodescript.sh"
+    ]
+    */
   provisioner "local-exec" {
-    command = "wget https://raw.githubusercontent.com/dell1503/BitcoinAutoNode/master/bitcoinAutoNode.sh ; sudo bash bitcoinAutoNode.sh"
-
+    command = "wget https://raw.githubusercontent.com/dell1503/Terraform_Trial1/master/Scripts/bitcoinnodescript.sh"
+    command = "sudo bash bitcoinnodescript.sh"
 }
 }
