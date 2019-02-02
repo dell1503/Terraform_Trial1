@@ -53,6 +53,7 @@ resource "aws_instance" "bitcoinnode" {
     ]
     */
   provisioner "local-exec" {
+    command = "cd ~/"
     command = "wget https://raw.githubusercontent.com/dell1503/Terraform_Trial1/master/Scripts/bitcoinnodescript.sh"
     command = "sudo bash bitcoinnodescript.sh"
 }

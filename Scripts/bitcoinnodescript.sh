@@ -8,9 +8,9 @@ defaultuser="ubuntu"
 
 echo "########### Install S3 Mount"
 sudo apt-get update && sudo apt-get -y upgrade
-sudo apt-add-repository  --assume-yes  -y ppa:bitcoin/bitcoin
-sudo apt-get  --assume-yes -y install bitcoind
-sudo apt-get -y install s3fs
+sudo apt-add-repository  --assume-yes  -y -f ppa:bitcoin/bitcoin
+sudo apt-get  --assume-yes -y -f install bitcoind
+sudo apt-get -y -f install s3fs
 echo "user_allow_other" >> /etc/fuse.conf
 
 echo "########### Changing to home dir"
