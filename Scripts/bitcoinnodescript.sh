@@ -8,7 +8,7 @@ defaultuser="ubuntu"
 
 echo "########### Install S3 Mount"
 sudo apt-get update
-sudo apt-add-repository  --assume-yes  -y -f ppa:bitcoin/bitcoin
+sudo apt-add-repository ppa:bitcoin/bitcoin -y
 sudo apt-get  --assume-yes -y -f install bitcoind
 sudo apt-get clean bitcoind
 sudo apt-get autoremove
