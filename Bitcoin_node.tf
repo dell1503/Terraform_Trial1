@@ -36,7 +36,7 @@ resource "aws_instance" "bitcoinnode" {
   instance_type         = "t2.micro"
   security_groups       = ["${aws_security_group.ec2bitcoinnode.name}"]
   iam_instance_profile  = "bitcoinec2" 
-  key_name              = "EC2_BTC"
+  #key_name              = "EC2_BTC"
   tags                  = {
                           Name        = "EC2"
                           Environment = "Dev"
