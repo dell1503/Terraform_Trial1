@@ -2,6 +2,10 @@ provider "aws" {
   region = "eu-central-1"
 }
 
+resource "aws_key_pair" "develop" {
+  key_name   = "develop"
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGusJQ7Dzj43DZ0hyQqlM2IZgOJoVywBCHPOHmgCT/6AkVfePP/rlm+VGkPJ+9jvjxyFUu7709pMPHWXpll71jiFyA4B+9KOGgkyRLE0G8yGZXHsPEbEtqsPWxUMARa3mpJ1nO52I1C4bRsKGUyoGxCvs5+sxPgP0Gh7XCU6zzvDv/2q+7f+ot9UACaZ757E4Hhf7w20DQWVk42UljEBiHWl78VELzo1RgTOzKKQiJ3ZbQFnAAOwA/dIGOxQ3lad4mTE1JSaaWy/OwqfJDObhSRhzEYviHfWjvRrmIh6ycqYoDVwT+bjsdXa1sh2JF54qS7XQmPifFrWZ5Qj1e9bMp"
+}
 # VPC 
 /*
 resource "aws_vpc" "mainvpc" {
@@ -36,25 +40,25 @@ resource "aws_instance" "bitcoinnode" {
   instance_type         = "t2.micro"
   security_groups       = ["${aws_security_group.ec2bitcoinnode.name}"]
   iam_instance_profile  = "bitcoinec2" 
-  #key_name              = "EC2_BTC"
+  key_name              = "EC2_BTC"
   tags                  = {
                           Name        = "EC2"
                           Environment = "Dev"
                           }
-    provisioner "file" {
-    source      = "README.md"
-    destination = "/tmp/README.md"
-  }
-    /*
-    provisioner "remote-exec" {
+
+  provisioner "remote-exec" {
     inline = [
-      "https://raw.githubusercontent.com/dell1503/Terraform_Trial1/master/Scripts/bitcoinnodescript.sh",
-      "sudo bash bitcoinnodescript.sh"
+      "cd ~/",
+      "wget https://raw.githubusercontent.com/dell1503/Terraform_Trial1/master/Scripts/bitcoinnodescript.sh",
+      "sudo bash bitcoinnodescript.sh",
+      "wget https://raw.githubusercontent.com/dell1503/Terraform_Trial1/master/Scripts/User_Cron_Start.sh",
+      "bash User_Cron_Start.sh",
     ]
-    */
-  provisioner "local-exec" {
-    command = "cd ~/"
-    command = "wget https://raw.githubusercontent.com/dell1503/Terraform_Trial1/master/Scripts/bitcoinnodescript.sh"
-    command = "sudo bash bitcoinnodescript.sh"
-}
+  }
+  connection {
+    type     = "ssh"
+    user     = "ubuntu"
+    password = ""
+    private_key = "${file("~/.ssh/EC2_BTC.pem")}"
+  }
 }
