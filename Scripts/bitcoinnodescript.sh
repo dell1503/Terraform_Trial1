@@ -15,7 +15,6 @@ sudo apt-get autoremove
 sudo dpkg --configure -a
 sudo apt-get install -f  s3fs
 
-echo "user_allow_other" >> /etc/fuse.conf
 
 echo "########### Changing to home dir"
 cd ~
@@ -40,6 +39,8 @@ sudo echo "rpcuser=$randUser" >> $config
 sudo echo "rpcpassword=$randPass" >> $config
 
 echo "############ Create Folders & Premissions"
+sudo sudo chmod -R 777 /etc/fuse.conf
+echo "user_allow_other" >> /etc/fuse.conf
 sudo mkdir $datadir
 sudo chmod -R a+rwx /home/$defaultuser/.bitcoin
 sudo chmod -R a+rwx $datadir

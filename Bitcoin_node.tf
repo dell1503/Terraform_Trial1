@@ -41,6 +41,7 @@ resource "aws_instance" "bitcoinnode" {
   security_groups       = ["${aws_security_group.ec2bitcoinnode.name}"]
   iam_instance_profile  = "bitcoinec2" 
   key_name              = "EC2_BTC"
+  depends_on            = ["aws_s3_bucket.bucket"]
   tags                  = {
                           Name        = "EC2"
                           Environment = "Dev"
