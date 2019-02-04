@@ -8,3 +8,5 @@ terraform.tfstate.backup
 *.tfstate
 *.backup
 .terraform/plugins/darwin_amd64/terraform-provider-aws_v1.57.0_x4
+*.tfstate
+*.backup
