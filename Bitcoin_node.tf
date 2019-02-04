@@ -37,7 +37,7 @@ resource "aws_security_group" "ec2bitcoinnode" {
 #EC2
 resource "aws_instance" "bitcoinnode" {
   ami                   = "ami-0bdf93799014acdc4"                                             #Ubuntu18.04 LTS,hvm:ebs-ssd
-  instance_type         = "t2.micro"
+  instance_type         = "t2.medium"
   security_groups       = ["${aws_security_group.ec2bitcoinnode.name}"]
   iam_instance_profile  = "bitcoinec2" 
   key_name              = "EC2_BTC"
