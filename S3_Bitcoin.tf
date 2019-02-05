@@ -6,3 +6,12 @@ resource "aws_s3_bucket" "bucket" {
     Environment = "Dev"
   }
 }
+
+resource "aws_s3_bucket" "statebucket" {
+  bucket = "terraform-state-bucket-dell1503"
+  acl    = "private"
+
+  versioning {
+    enabled = true
+  }
+}
