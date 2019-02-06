@@ -22,9 +22,16 @@ resource "aws_iam_policy" "ec2tos3btc" {
     ]
 }
 EOF
+# Assigne the Policy to Role.
 }
 resource "aws_iam_policy_attachment" "s3_to_ec2_attachment" {
   name       = "test-attachment"
   roles      = ["${aws_iam_role.bitcoinec2_role.name}"]
   policy_arn = "${aws_iam_policy.ec2tos3btc.arn}"
+}
+
+#
+resource "aws_iam_instance_profile" "bitcoinec2_profile" {
+  name  = "bitcoinec2_profile"
+  roles = ["${aws_iam_role.bitcoinec2_role.name}"]
 }
