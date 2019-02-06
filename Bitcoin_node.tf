@@ -1,4 +1,5 @@
 provider "aws" {  
+  region = "eu-central-1"
 }
 
 # VPC 
@@ -40,7 +41,7 @@ resource "aws_instance" "bitcoinnode" {
   ami                   = "ami-0bdf93799014acdc4"                                             #Ubuntu18.04 LTS,hvm:ebs-ssd
   instance_type         = "t2.medium"
   security_groups       = ["${aws_security_group.ec2bitcoinnode.name}"]
-  iam_instance_profile  = "bitcoinec2" 
+  iam_instance_profile  = "${aws_iam_role.bitcoinec2_role.name}"
   key_name              = "EC2_BTC"
   depends_on            = ["aws_s3_bucket.bucket"]
   tags                  = {
