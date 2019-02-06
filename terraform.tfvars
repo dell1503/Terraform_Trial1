@@ -1,3 +1,3 @@
-access_key = "foo"
-secret_key = "bar"
+aws_region = "eu-central-1"
 bucket = "bitcoin-3876412"
+
