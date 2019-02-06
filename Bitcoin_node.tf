@@ -1,4 +1,5 @@
-provider "aws" {}
+provider "aws" {  
+}
 
 # VPC 
 /*
@@ -60,6 +61,7 @@ resource "aws_instance" "bitcoinnode" {
     type     = "ssh"
     user     = "ubuntu"
     password = ""
-    private_key = "${file("~/.ssh/EC2_BTC.pem")}"
+    # Require to Export Env. Variable e.g export EC2_BTC_KEY=`cat ~/.ssh/EC2_BTC.pem`
+    private_key = "${String.EC2_BTC_KEY.Data}"
   }
 }
