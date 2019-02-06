@@ -21,6 +21,7 @@ cache:
 before_script:
   - terraform --version
   - echo $test
+  - export
   - terraform init
 
 stages:
