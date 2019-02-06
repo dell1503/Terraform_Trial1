@@ -2,6 +2,6 @@ terraform {
   backend "s3" {
     bucket = "terraform-state-bucket-dell1503"
     key    = "dell1503/terraform-state-bucket.tfstate"
-    region = "${var.aws_region}"
+    region = "eu-central-1"
   }
 }
