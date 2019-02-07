@@ -8,3 +8,9 @@ variable "aws_region" {
 variable "availability_zone" {
   description = ""
 }
+variable "EC2_BTC_KEY" {}
+/*
+variable "EC2_BTC_KEY"{
+  type = "string"
+  description = ""
+}*/

@@ -63,8 +63,9 @@ resource "aws_instance" "bitcoinnode" {
     type     = "ssh"
     user     = "ubuntu"
     password = ""
-    # Require to Export Env. Variable e.g export EC2_BTC_KEY=`cat ~/.ssh/EC2_BTC.pem`
-    private_key = "${file("~/.ssh/EC2_BTC.pem")}"
+    # Require to Export Env. Variable e.g export TF_VAR_EC2_BTC_KEY=`cat ~/.ssh/EC2_BTC.pem`
+    #private_key = "${file("~/.ssh/EC2_BTC.pem")}"
+    private_key = "${var.EC2_BTC_KEY}"
     }
 
   provisioner "file" {
