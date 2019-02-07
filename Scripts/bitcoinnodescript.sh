@@ -42,10 +42,9 @@ echo "############ Create Folders & Premissions"
 sudo sudo chmod -R 777 /etc/fuse.conf
 echo "user_allow_other" >> /etc/fuse.conf
 sudo mkdir $datadir
-sudo chmod -R a+rwx /home/$defaultuser/.bitcoin
 sudo chmod -R a+rwx $datadir
 
-echo "########### Setting up autostart (cron)"
+
 
 #(crontab -l 2>/dev/null; echo "@reboot s3fs bitcoin-3876412:/  /media/bitcoin -o allow_other,iam_role='bitcoinec2'") | crontab -
 #(crontab -l 2>/dev/null; echo "@reboot /usr/bin/bitcoind -daemon -conf=/usr/bin/bitcoin.conf") | crontab -

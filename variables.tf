@@ -4,3 +4,7 @@ variable "bucket" {
 variable "aws_region" {
   description = "The region to provision AWS resources in."
 }
+
+variable "availability_zone" {
+  description = ""
+}
