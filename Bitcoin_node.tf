@@ -42,7 +42,7 @@ resource "aws_instance" "bitcoinnode" {
   instance_type         = "t2.medium"
  # availability_zone     = "${var.availability_zone}"
   security_groups       = ["${aws_security_group.ec2bitcoinnode.name}"]
-  iam_instance_profile  = "${aws_iam_instance_profile.bitcoinec2_profile.name}"
+  iam_instance_profile  = "bitcoinec2"
   key_name              = "EC2_BTC"
   depends_on            = ["aws_s3_bucket.bucket"]
   tags                  = {
