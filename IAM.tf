@@ -26,7 +26,7 @@ EOF
 }
 resource "aws_iam_policy_attachment" "s3_to_ec2_attachment" {
   name       = "test-attachment"
-  role      = "${aws_iam_role.bitcoinec2_role.name}"
+  roles      = ["${aws_iam_role.bitcoinec2_role.name}"]
   policy_arn = "${aws_iam_policy.ec2tos3btc.arn}"
 }
 
