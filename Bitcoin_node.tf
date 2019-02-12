@@ -61,12 +61,6 @@ resource "aws_instance" "bitcoinnode" {
     volume_size = 300
     volume_type = "gp2"
     delete_on_termination = true
-    tags                  = {
-                          Name        = "EBS_ROOT"
-                          Type        = "ebs"
-                          Environment = "Dev"
-                          Service     = "bitcoinnode"
-                          }
     }
 
 
