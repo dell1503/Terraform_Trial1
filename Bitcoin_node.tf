@@ -5,7 +5,6 @@ provider "aws" {
 # VPC 
 /*
 resource "aws_vpc" "mainvpc" {
-
   cidr_block = "10.0.0.0/16"
 }
 */
@@ -14,7 +13,12 @@ resource "aws_security_group" "ec2bitcoinnode" {
   name        = "ec2bitcoinnode"
   description = "Security Group for EC2 isntance of Bitcoinnode"
   vpc_id      = "vpc-1775487c"
-
+    tags                  = {
+                          Name        = "securitygroup"
+                          Type        = "sg"
+                          Environment = "Dev"
+                          Service     = "bitcoinnode"
+                          }
   ingress {
     from_port   = 22
     to_port     = 22
@@ -47,7 +51,9 @@ resource "aws_instance" "bitcoinnode" {
   depends_on            = ["aws_s3_bucket.bucket"]
   tags                  = {
                           Name        = "EC2"
+                          Type        = "ec2"
                           Environment = "Dev"
+                          Service     = "bitcoinnode"
                           }
 # One liner: wget https://raw.githubusercontent.com/dell1503/Terraform_Trial1/master/Scripts/bitcoinnodescript.sh ; sudo bash bitcoinnodescript .sh ; wget https://raw.githubusercontent.com/dell1503/Terraform_Trial1/master/Scripts/User_Cron_Start.sh ; bash User_Cron_Start.sh https://github.com/hashicorp/terraform/issues/3360
   
@@ -55,6 +61,12 @@ resource "aws_instance" "bitcoinnode" {
     volume_size = 300
     volume_type = "gp2"
     delete_on_termination = true
+    tags                  = {
+                          Name        = "EBS_ROOT"
+                          Type        = "ebs"
+                          Environment = "Dev"
+                          Service     = "bitcoinnode"
+                          }
     }
 
 
